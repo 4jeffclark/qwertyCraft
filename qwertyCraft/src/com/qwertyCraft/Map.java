@@ -1,5 +1,5 @@
 package com.qwertyCraft;
 
-public class MapGrid {
+public class Map {
 
 }
