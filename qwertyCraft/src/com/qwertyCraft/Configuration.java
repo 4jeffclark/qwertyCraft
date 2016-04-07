@@ -8,9 +8,9 @@ import java.util.Map;
 public final class Configuration { 
     private Date released;
     private String version;
-    //private Connection connection;
-    private List< String > protocols;
-    private Map< String, String > users; 
+    private YamlClassExample classExample;
+    private List< String > listExample;
+    private Map< String, String > mapExample; 
  
     public Date getReleased() {
         return released;
@@ -28,28 +28,28 @@ public final class Configuration {
         this.version = version;
     }
  
-    //public Connection getConnection() {
-    //    return connection;
-    //}
+    public YamlClassExample getClassExample() {
+        return classExample;
+    }
  
-    //public void setConnection(Connection connection) {
-    //    this.connection = connection;
-    //}
+    public void setClassExample(YamlClassExample classExample) {
+        this.classExample = classExample;
+    }
  
-    public List< String > getProtocols() {
-        return protocols;
+    public List< String > getListExample() {
+        return listExample;
     }
 
-    public void setProtocols(List< String > protocols) {
-        this.protocols = protocols;
+    public void setListExample(List< String > listExample) {
+        this.listExample = listExample;
     }
  
-    public Map< String, String > getUsers() {
-        return users;
+    public Map< String, String > getMapExample() {
+        return mapExample;
     }
  
-    public void setUsers(Map< String, String > users) {
-        this.users = users;
+    public void setMapExample(Map< String, String > mapExample) {
+        this.mapExample = mapExample;
     }
  
     @Override
@@ -57,9 +57,9 @@ public final class Configuration {
         return new StringBuilder()
             .append( format( "Version: %s\n", version ) )
             .append( format( "Released: %s\n", released ) )
-            //.append( format( "Connecting to database: %s\n", connection ) )
-            .append( format( "Supported protocols: %s\n", protocols ) )
-            .append( format( "Users: %s\n", users ) )
+            .append( format( "Class Example: %s\n", classExample ) )
+            .append( format( "List example: %s\n", listExample ) )
+            .append( format( "Map example: %s\n", mapExample ) )
             .toString();
     }
 }

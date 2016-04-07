@@ -1,12 +1,17 @@
-version: 1.0
-released: 2012-11-30
+version: 0.1
+released: 2016-04-11
 
-# Protocols
-protocols:
+# YamlClassExample
+classExample:
+    url: jdbc:mysql://localhost:3306/db
+    poolSize: 5
+
+# Map
+listExample:
    - http
    - https
 
 # Users
-users:
+mapExample:
     tom: passwd
     bob: passwd
