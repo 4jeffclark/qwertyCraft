@@ -1,2 +1,2 @@
 #!/bin/bash
-java -cp build/classes net.homeip.jeffclark.popJava.test.TestAll
+java -cp build/classes:../popJava/popJava/build/classes com.qwertyCraft.Test
