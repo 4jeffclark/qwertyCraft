@@ -2,19 +2,33 @@ package com.qwertyCraft;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.yaml.snakeyaml.Yaml;
 
 import net.homeip.jeffclark.popJava.consoleio.popConsole;
 import net.homeip.jeffclark.popJava.fileio.popFile;
 
-public class Test {
-	public static void main(String[] args) throws FileNotFoundException {
-		Yaml yaml = new Yaml();
-		String document = "\n- Hesperiidae\n- Papilionidae\n- Apatelodidae\n- Epiplemidae";
-		List<String> list = (List<String>) yaml.load(document);
-		System.out.println(list);
 
+public class Test {
+	public static void main(String[] args) throws FileNotFoundException,IOException {
+		    //Yaml yaml = new Yaml();
+	    	//String document = "\n- Hesperiidae\n- Papilionidae\n- Apatelodidae\n- Epiplemidae";
+	    	//List<String> list = (List<String>) yaml.load(document);
+	    	//System.out.println(list);
+        if( args.length != 1 ) {
+            System.out.println( "Usage: <file.yml>" );
+            return;
+        }
+  
+        Yaml yaml = new Yaml();  
+        try( InputStream in = Files.newInputStream( Paths.get( args[ 0 ] ) ) ) {
+            Configuration config = yaml.loadAs( in, Configuration.class );
+            System.out.println( config.toString() );
+        }
 
 		//popConsole Test	    
 	    String userinput = null;
