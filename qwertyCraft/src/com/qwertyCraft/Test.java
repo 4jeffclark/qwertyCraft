@@ -26,19 +26,56 @@ public class Test {
             Configuration qC_config = configyaml.loadAs( in, Configuration.class );
   					System.out.println( "qwertyCraft v" + qC_config.getVersion() );
 						System.out.println( "Configuration loaded from " + args[0] );
-  					System.out.println( "dump:\n" + qC_config.toString() );
+  					//System.out.println( "dump:\n" + qC_config.toString() );
         }
 
-			
-			
-		
+	    Integer tick = 0;		
 	    String userinput = null;
 	    popConsole console = new popConsole();	    
-	    Player testPlayer = new Player();
-   
-	    testPlayer.setName(console.prompt("Please tell me your name: "));
+	    LevelMap mymap = new LevelMap();
+	    String playerinput = new String();
+	    userinput = console.prompt("Please tell me your name: ");
+	    Player testPlayer = new Player(userinput);
+
+
 	    System.out.println("Hello there " + testPlayer.getName() + ". Welcome to the qwertyCraft test world.");
-			console.prompt("Press any key to continue...");
+		console.prompt("Press any key to continue...");
+		
+			
+		while (true){
+			tick++;
+			System.out.println ("you are at: "+ 
+					mymap.tile[testPlayer.x][testPlayer.y][testPlayer.z].name);
+			userinput=console.prompt("> ");
+			if (userinput.equals("n")){
+				testPlayer.y++;
+			} else if (userinput.equals("s")){
+				testPlayer.y--;
+			} else if (userinput.equals("e")){
+				testPlayer.x++;
+			} else if (userinput.equals("w")){
+				testPlayer.x--;
+			} else if (userinput.equals("nw")){
+				testPlayer.x--;
+				testPlayer.y++;
+			} else if (userinput.equals("ne")){
+				testPlayer.x++;
+				testPlayer.y++;
+			} else if (userinput.equals("se")){
+				testPlayer.x++;
+				testPlayer.y--;
+			} else if (userinput.equals("sw")){
+				testPlayer.x--;
+				testPlayer.y--;
+			} else if (userinput.equals("u")){
+				testPlayer.z++;
+			} else if (userinput.equals("d")){
+				testPlayer.z--;
+			} else if (userinput.equals("exit")){
+				break;
+			} 
+			testPlayer.bringInBounds();
+		}
 		
 	}
 }

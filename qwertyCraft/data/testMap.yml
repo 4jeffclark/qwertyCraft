@@ -1,8 +1,8 @@
 name: Offramp Bridge
-released: 2016-03-11
+tbd: tbd
 
-# mapFile
-mapFile: data/testMap.yml
+cell:
+	X: data/testMap.yml
 
 
 

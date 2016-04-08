@@ -1,28 +1,21 @@
 package com.qwertyCraft;
 
-public final class LevelMap {
-    private String url;
-    private int poolSize;
-  
-    public String getUrl() {
-        return url;
-    }
- 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public int getPoolSize() {
-        return poolSize;
-    }
-
-    public void setPoolSize(int poolSize) {
-        this.poolSize = poolSize;
-    }
- 
-    @Override
-    public String toString() {
-        return String.format( "'%s' with pool of %d", getUrl(), getPoolSize() );
-    }
+public class LevelMap {	
+	public Tile[][][] tile;
+	
+	public LevelMap () {
+		tile = new Tile[256][][];
+		
+		for (Integer x=0;x<256;x++) {
+			tile[x]= new Tile[256][];
+			for (Integer y=0;y<256;y++) {
+				tile[x][y] = new Tile[8];
+				for (Integer z=0;z<8;z++) {
+					tile[x][y][z]= new Tile();
+					tile[x][y][z].name = x.toString() + " " +y.toString()+" "+z.toString();
+				}
+			}
+		}
+	}
 }
 
