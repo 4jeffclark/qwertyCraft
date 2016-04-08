@@ -1,7 +1,8 @@
-# mapFile
 version: 0.1
-#mapFile: data/testMap.yml
 released: 2016-03-11
+
+# mapFile
+mapFile: data/testMap.yml
 
 # YamlClassExample
 classExample:

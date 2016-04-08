@@ -37,15 +37,6 @@ public final class Configuration {
         this.mapFile = mapFile;
     }
  
-    public Date getMapFile() {
-        return released;
-    }
-
-    public void setMapFile(String mapFile) {
-        this.mapFile = mapFile;
-    }
-    
-
     public YamlClassExample getClassExample() {
         return classExample;
     }
