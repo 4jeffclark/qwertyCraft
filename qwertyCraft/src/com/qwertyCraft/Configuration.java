@@ -6,28 +6,46 @@ import java.util.List;
 import java.util.Map;
 
 public final class Configuration { 
-    private Date released;
     private String version;
+    private Date released;
+    private String mapFile;
     private YamlClassExample classExample;
     private List< String > listExample;
     private Map< String, String > mapExample; 
- 
-    public Date getReleased() {
-        return released;
-    }
- 
+
     public String getVersion() {
         return version;
-    }
- 
-    public void setReleased(Date released) {
-        this.released = released;
     }
  
     public void setVersion(String version) {
         this.version = version;
     }
  
+    public Date getReleased() {
+        return released;
+    }
+
+    public void setReleased(Date released) {
+        this.released = released;
+    }
+    
+    public String getmapFile() {
+        return mapFile;
+    }
+ 
+    public void setmapFile(String mapFile) {
+        this.mapFile = mapFile;
+    }
+ 
+    public Date getMapFile() {
+        return released;
+    }
+
+    public void setMapFile(String mapFile) {
+        this.mapFile = mapFile;
+    }
+    
+
     public YamlClassExample getClassExample() {
         return classExample;
     }
@@ -57,6 +75,7 @@ public final class Configuration {
         return new StringBuilder()
             .append( format( "Version: %s\n", version ) )
             .append( format( "Released: %s\n", released ) )
+            .append( format( "Map File: %s\n", mapFile ) )
             .append( format( "Class Example: %s\n", classExample ) )
             .append( format( "List example: %s\n", listExample ) )
             .append( format( "Map example: %s\n", mapExample ) )

@@ -1,5 +1,7 @@
+# mapFile
 version: 0.1
-released: 2016-04-11
+#mapFile: data/testMap.yml
+released: 2016-03-11
 
 # YamlClassExample
 classExample:
@@ -15,3 +17,5 @@ listExample:
 mapExample:
     tom: passwd
     bob: passwd
+
+
