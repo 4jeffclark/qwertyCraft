@@ -13,54 +13,7 @@ public final class Configuration {
     private List< String > listExample;
     private Map< String, String > mapExample; 
 
-    public String getVersion() {
-        return version;
-    }
- 
-    public void setVersion(String version) {
-        this.version = version;
-    }
- 
-    public Date getReleased() {
-        return released;
-    }
 
-    public void setReleased(Date released) {
-        this.released = released;
-    }
-    
-    public String getmapFile() {
-        return mapFile;
-    }
- 
-    public void setmapFile(String mapFile) {
-        this.mapFile = mapFile;
-    }
- 
-    public YamlClassExample getClassExample() {
-        return classExample;
-    }
- 
-    public void setClassExample(YamlClassExample classExample) {
-        this.classExample = classExample;
-    }
- 
-    public List< String > getListExample() {
-        return listExample;
-    }
-
-    public void setListExample(List< String > listExample) {
-        this.listExample = listExample;
-    }
- 
-    public Map< String, String > getMapExample() {
-        return mapExample;
-    }
- 
-    public void setMapExample(Map< String, String > mapExample) {
-        this.mapExample = mapExample;
-    }
- 
     @Override
     public String toString() {
         return new StringBuilder()
@@ -72,4 +25,88 @@ public final class Configuration {
             .append( format( "Map example: %s\n", mapExample ) )
             .toString();
     }
+
+	/**
+	 * @return the version
+	 */
+	public String getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	/**
+	 * @return the released
+	 */
+	public Date getReleased() {
+		return released;
+	}
+
+	/**
+	 * @param released the released to set
+	 */
+	public void setReleased(Date released) {
+		this.released = released;
+	}
+
+	/**
+	 * @return the mapFile
+	 */
+	public String getMapFile() {
+		return mapFile;
+	}
+
+	/**
+	 * @param mapFile the mapFile to set
+	 */
+	public void setMapFile(String mapFile) {
+		this.mapFile = mapFile;
+	}
+
+	/**
+	 * @return the classExample
+	 */
+	public YamlClassExample getClassExample() {
+		return classExample;
+	}
+
+	/**
+	 * @param classExample the classExample to set
+	 */
+	public void setClassExample(YamlClassExample classExample) {
+		this.classExample = classExample;
+	}
+
+	/**
+	 * @return the listExample
+	 */
+	public List<String> getListExample() {
+		return listExample;
+	}
+
+	/**
+	 * @param listExample the listExample to set
+	 */
+	public void setListExample(List<String> listExample) {
+		this.listExample = listExample;
+	}
+
+	/**
+	 * @return the mapExample
+	 */
+	public Map<String, String> getMapExample() {
+		return mapExample;
+	}
+
+	/**
+	 * @param mapExample the mapExample to set
+	 */
+	public void setMapExample(Map<String, String> mapExample) {
+		this.mapExample = mapExample;
+	}
 }
