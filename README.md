@@ -1,8 +1,12 @@
 # qwertyCraft
 Text-only game engine.
 
-Major classes planned:
+class LevelMap prototype with Tiled support almost ready!!!!
+
+Major classes planned: 
   Player
-  Map
+  LevelMap
   StoryTree
   Console
+
+
