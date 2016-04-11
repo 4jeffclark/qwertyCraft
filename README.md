@@ -1,7 +1,9 @@
 # qwertyCraft
 Text-only game engine.
 
-class LevelMap prototype almost working!!!!
+LevelMap prototype almost working!!!!
+Master branch currently windows-only.
+Using linux branch to catch up on cross-platform fixes.
 
 Major classes planned:
   Player
