@@ -1,17 +1,13 @@
 package com.qwertyCraft;
 
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
+import java.io.*;
 import org.yaml.snakeyaml.Yaml;
 
 import net.homeip.jeffclark.popJava.consoleio.popConsole;
-import net.homeip.jeffclark.popJava.fileio.popFile;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
 
 public class Test {
 	public static void main(String[] args) throws FileNotFoundException,IOException {
@@ -22,17 +18,24 @@ public class Test {
         }
   
         Yaml configyaml = new Yaml();  
+
+
         try( InputStream in = Files.newInputStream( Paths.get( args[ 0 ] ) ) ) {
             Configuration qC_config = configyaml.loadAs( in, Configuration.class );
   					System.out.println( "qwertyCraft v" + qC_config.getVersion() );
 						System.out.println( "Configuration loaded from " + args[0] );
-  					//System.out.println( "dump:\n" + qC_config.toString() );
+  					System.out.println( "dump:\n" + qC_config.toString() );
         }
 
+     
+        
 	    Integer tick = 0;		
 	    String userinput = null;
 	    popConsole console = new popConsole();	    
-	    LevelMap mymap = new LevelMap();
+
+		LevelMap mymap = new LevelMap("data\\template.yml");
+		System.out.println(mymap.toString()); 
+/*
 	    String playerinput = new String();
 	    userinput = console.prompt("Please tell me your name: ");
 	    Player testPlayer = new Player(userinput);
@@ -76,6 +79,6 @@ public class Test {
 			} 
 			testPlayer.bringInBounds();
 		}
-		
+		*/
 	}
 }
