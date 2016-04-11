@@ -9,5 +9,6 @@ Major classes planned:
   Player
   LevelMap
 	TmxYaml
+	TmxLayer
   StoryTree
   Console
