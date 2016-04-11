@@ -16,19 +16,12 @@ public class Test {
             System.out.println( "Usage: <Configuration_Filename.yml>" );
             return;
         }
-  
-        Yaml configyaml = new Yaml();  
 
-
-        try( InputStream in = Files.newInputStream( Paths.get( args[ 0 ] ) ) ) {
-            Configuration qC_config = configyaml.loadAs( in, Configuration.class );
-  					System.out.println( "qwertyCraft v" + qC_config.getVersion() );
-						System.out.println( "Configuration loaded from " + args[0] );
-  					System.out.println( "dump:\n" + qC_config.toString() );
-        }
-
-     
-        
+			Configuration qC_config= new Configuration(Paths.get( args[ 0 ] ));
+      System.out.println( "qwertyCraft v" + qC_config.getVersion() );
+			System.out.println( "Configuration loaded from " + args[0] );
+  		System.out.println( "dump:\n" + qC_config.toString() );
+		
 	    Integer tick = 0;		
 	    String userinput = null;
 	    popConsole console = new popConsole();	    
