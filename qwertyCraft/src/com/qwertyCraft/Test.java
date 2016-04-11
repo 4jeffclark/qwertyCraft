@@ -33,7 +33,7 @@ public class Test {
 	    String userinput = null;
 	    popConsole console = new popConsole();	    
 
-		LevelMap mymap = new LevelMap("data\\template.yml");
+		LevelMap mymap = new LevelMap("data/template.yml");
 		System.out.println(mymap.toString()); 
 /*
 	    String playerinput = new String();
