@@ -1,9 +1,13 @@
 package com.qwertyCraft;
 import static java.lang.String.format;
 
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.yaml.snakeyaml.Yaml;
 
 public final class Configuration { 
     private String version;
@@ -17,13 +21,13 @@ public final class Configuration {
 
         Yaml configyaml = new Yaml();  
 
-
+/*
         try( InputStream in = Files.newInputStream( filename )) {
-            this = configyaml.loadAs( in, Configuration.class );
+            this.class = configyaml.loadAs( in, Configuration.class );
 
         }
 
-
+*/
 		}
 
 	

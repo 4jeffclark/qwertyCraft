@@ -17,10 +17,10 @@ public class Test {
             return;
         }
 
-			Configuration qC_config= new Configuration(Paths.get( args[ 0 ] ));
-      System.out.println( "qwertyCraft v" + qC_config.getVersion() );
-			System.out.println( "Configuration loaded from " + args[0] );
-  		System.out.println( "dump:\n" + qC_config.toString() );
+		//Configuration qC_config= new Configuration(Paths.get( args[ 0 ] ));
+		//System.out.println( "qwertyCraft v" + qC_config.getVersion() );
+		//System.out.println( "Configuration loaded from " + args[0] );
+  		//System.out.println( "dump:\n" + qC_config.toString() );
 		
 	    Integer tick = 0;		
 	    String userinput = null;

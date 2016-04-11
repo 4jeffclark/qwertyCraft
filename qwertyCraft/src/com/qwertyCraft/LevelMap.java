@@ -93,7 +93,8 @@ public class LevelMap {
 		System.out.println(((Map) ((ArrayList) ty.get("tilesets")).get(0)));
 		
 		this.tmxyaml.tilesets = new ArrayList<TileSet>();
-		for (int tset=0;tset < ((ArrayList) ty.get("tilesets")).size();tset++) {
+//		for (int tset=0;tset < ((ArrayList) ty.get("tilesets")).size();tset++) {
+		for (int tset=0;tset < 3;tset++) {
 
 			//System.out.println(tset);
 			TileSet tempts = new TileSet();
