@@ -1,13 +1,10 @@
 # qwertyCraft
 Text-only game engine.
 
-class LevelMap prototype with Tiled support almost ready!!!!
+class LevelMap prototype almost working!!!!
 
-Major classes planned: 
-	Player
-	LevelMap
-		TmxMap
-			TmxLayer
-				
-	StoryTree
-	Console
+Major classes planned:
+  Player
+  LevelMap
+  StoryTree
+  Console
