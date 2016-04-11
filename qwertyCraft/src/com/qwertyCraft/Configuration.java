@@ -13,7 +13,22 @@ public final class Configuration {
     private List< String > listExample;
     private Map< String, String > mapExample; 
 
+		public Configuration (String filename) {
 
+        Yaml configyaml = new Yaml();  
+
+
+        try( InputStream in = Files.newInputStream( filename )) {
+            this = configyaml.loadAs( in, Configuration.class );
+
+        }
+
+
+		}
+
+	
+	
+	
     @Override
     public String toString() {
         return new StringBuilder()

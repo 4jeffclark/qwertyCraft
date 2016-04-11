@@ -10,5 +10,6 @@ Major classes planned:
   LevelMap
 	TmxYaml
 	TmxLayer
+	TileProperties
   StoryTree
   Console
