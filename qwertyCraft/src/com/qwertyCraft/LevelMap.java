@@ -112,14 +112,27 @@ public class LevelMap {
 
 			tempts.tileproperties = (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tileproperties") );
 			
-			System.out.println (tempts.tileproperties.getClass());
-			//System.out.println (((Map)tempts.tileproperties).keySet());
-			//if (tempts.tileproperties.containsKey(41))
-			//	System.out.println (tempts.tileproperties.get(41));
-			
+			/*
+			for (int tileID : tempts.tileproperties.keySet()) {
+				for (String prop : tempts.tileproperties.get(tileID).keySet()) {
+					System.out.println("Item : " + prop + "Val: " + tempts.tileproperties.get(tileID).get(prop));
+				}
+			}
+		
+			*/
 			
 			tempts.tilepropertytypes =  (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
-
+/*
+			for (String propname : tmxyaml.tilesets.get(tset).tileproperties.get(tileID).keySet()) {
+				String propval = tmxyaml.tilesets.get(tset).tileproperties.get(tileID).get(propname);
+				if (propname=="qCName") {
+					TileProperties tempqctp = new TileProperties();
+					tempqctp.
+				}
+			}
+*/
+			
+			
 			tempts.tilewidth=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilewidth");
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
 
@@ -186,12 +199,22 @@ public class LevelMap {
 
 			result = result + "\nTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).tileproperties.size() +")\n";
 
-			System.out.println ((tmxyaml.tilesets.get(tset).tileproperties).keySet());
+			for (int tileID : tmxyaml.tilesets.get(tset).tileproperties.keySet()) {
+				result = result + "TILEID: " +tileID + "\n"; 
+				for (String propname : tmxyaml.tilesets.get(tset).tileproperties.get(tileID).keySet()) {
+					String propval = tmxyaml.tilesets.get(tset).tileproperties.get(tileID).get(propname);
+					result = result + propname + ": " + propval +"\n";
+				}
+
+			}
+			
+			
+			/*System.out.println ((tmxyaml.tilesets.get(tset).tileproperties).keySet());
 			System.out.println ((tmxyaml.tilesets.get(tset).tilepropertytypes).keySet());
 
 			if (tmxyaml.tilesets.get(tset).tileproperties.containsKey(41))
 					System.out.println (tmxyaml.tilesets.get(tset).tileproperties.get(41).get("qCDesc"));	
-			
+			*/
 
 			/*
 			result = result + "\nqCProperties: (" + tmxyaml.tilesets.get(tset).qCProperties.size() +"(\n";
