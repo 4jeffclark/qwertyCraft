@@ -132,24 +132,26 @@ public class LevelMap {
 
 			for (int tileID : tempts.tileproperties.keySet()) {
 				qctp = new TileProperties();
+
 				for (String propname : tempts.tileproperties.get(tileID).keySet()) {
 			
 					String propval = tempts.tileproperties.get(tileID).get(propname);
-					if (propname=="qCName") {
+					if (propname.equals("qCName")) {
 						TileProperties tempqctp = new TileProperties();
 						qctp.qCName = propval;
 					} else
-					if (propname=="qCDesc") {
+					if (propname.equals("qCDesc")) {
 							TileProperties tempqctp = new TileProperties();
 							qctp.qCDesc = propval;
 					}
-				}
-				System.out.println(qctp.getClass());
 
+				}
 				if (!qctp.qCDesc.isEmpty() || !qctp.qCName.isEmpty()) {
 					qctp.localID=tileID;
 					qctp.globalID=tempts.firstgid+tileID;
 				}
+				//System.out.println("tempts.tp: \n" + tempts.tileproperties);
+				//System.out.println("tempts.qctp: \n" + tempts.qCTileProperties);
 				tempts.qCTileProperties.put(tileID, qctp);
 			}
 
@@ -214,6 +216,15 @@ public class LevelMap {
 			result = result + "\nTILECOUNT " + tmxyaml.tilesets.get(tset).tilecount;
 			result = result + "\nTILEHEIGHT " + tmxyaml.tilesets.get(tset).tileheight;
 
+			result = result + "\nQCTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).qCTileProperties.size() +")\n";
+
+			for (int tileID : tmxyaml.tilesets.get(tset).qCTileProperties.keySet()) {
+				
+				result = result + "TILEID " + tileID + " - "; 
+				result = result + "localID:" + tmxyaml.tilesets.get(tset).qCTileProperties.get(tileID).localID + " ";
+				result = result + "globalID:" + tmxyaml.tilesets.get(tset).qCTileProperties.get(tileID).globalID + "\n";
+
+			}			
 			result = result + "\nTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).tileproperties.size() +")\n";
 
 			for (int tileID : tmxyaml.tilesets.get(tset).tileproperties.keySet()) {
