@@ -3,14 +3,22 @@ package com.qwertyCraft;
 import java.util.Map;
 
 public class TileProperties {
-	Integer localID;
-	Integer globalID;
+	int localID;
+	int globalID;
 	String qCName;
 	String qCDesc;
+
+	public TileProperties () {
+		int localID = -1;
+		int globalID = -1;
+		qCName = new String();
+		qCDesc = new String();
+	}
+	
 	/**
 	 * @return the localID
 	 */
-	public Integer getLocalID() {
+		public Integer getLocalID() {
 		return localID;
 	}
 	/**

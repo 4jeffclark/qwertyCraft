@@ -122,19 +122,36 @@ public class LevelMap {
 			*/
 			
 			tempts.tilepropertytypes =  (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
-/*
-			for (String propname : tmxyaml.tilesets.get(tset).tileproperties.get(tileID).keySet()) {
-				String propval = tmxyaml.tilesets.get(tset).tileproperties.get(tileID).get(propname);
-				if (propname=="qCName") {
-					TileProperties tempqctp = new TileProperties();
-					tempqctp.
-				}
-			}
-*/
-			
+
+
 			
 			tempts.tilewidth=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilewidth");
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
+			
+		
+			for (int tileID : tempts.tileproperties.keySet()) {
+				TileProperties qctp = new TileProperties();
+				for (String propname : tempts.tileproperties.get(tileID).keySet()) {
+			
+					String propval = tempts.tileproperties.get(tileID).get(propname);
+					if (propname=="qCName") {
+						TileProperties tempqctp = new TileProperties();
+						qctp.qCName = propval;
+					} else
+					if (propname=="qCDesc") {
+							TileProperties tempqctp = new TileProperties();
+							qctp.qCDesc = propval;
+					}
+				}
+				System.out.println(qctp.getClass());
+
+				//if (!qctp.qCDesc.isEmpty() || !qctp.qCName.isEmpty()) {
+				if (false){
+					qctp.localID=tileID;
+					qctp.globalID=tempts.firstgid+tileID;
+				}
+				tempts.qCTileProperties.put(tileID, qctp);
+			}
 
 			this.tmxyaml.tilesets.add(tempts);
 

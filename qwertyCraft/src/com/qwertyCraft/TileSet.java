@@ -20,5 +20,9 @@ public class TileSet {
     Integer tilewidth;
     String transparentcolor;
     Map<Integer,TileProperties> qCTileProperties;
+ 
+    
+    
+    
     
 }
