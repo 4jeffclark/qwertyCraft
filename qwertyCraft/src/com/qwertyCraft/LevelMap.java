@@ -128,9 +128,10 @@ public class LevelMap {
 			tempts.tilewidth=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilewidth");
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
 			
-		
+			TileProperties qctp;
+
 			for (int tileID : tempts.tileproperties.keySet()) {
-				TileProperties qctp = new TileProperties();
+				qctp = new TileProperties();
 				for (String propname : tempts.tileproperties.get(tileID).keySet()) {
 			
 					String propval = tempts.tileproperties.get(tileID).get(propname);
@@ -145,8 +146,7 @@ public class LevelMap {
 				}
 				System.out.println(qctp.getClass());
 
-				//if (!qctp.qCDesc.isEmpty() || !qctp.qCName.isEmpty()) {
-				if (false){
+				if (!qctp.qCDesc.isEmpty() || !qctp.qCName.isEmpty()) {
 					qctp.localID=tileID;
 					qctp.globalID=tempts.firstgid+tileID;
 				}
