@@ -15,11 +15,10 @@ public class TileSet {
     Integer spacing;
     Integer tilecount;
     Integer tileheight;
-	Map<String,Map<String,String>> tileproperties;
-    //ArrayList<TileProperties> tileproperties; 
-    //ArrayList<TilePropertyTypes> tilepropertytypes;
-    Map<String,String> tilepropertytypes;
+	Map<Integer,Map<String,String>> tileproperties;
+	Map<Integer,Map<String,String>> tilepropertytypes;
     Integer tilewidth;
     String transparentcolor;
-
+    Map<Integer,TileProperties> qCTileProperties;
+    
 }

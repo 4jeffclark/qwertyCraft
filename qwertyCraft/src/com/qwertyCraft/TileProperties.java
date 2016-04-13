@@ -7,7 +7,6 @@ public class TileProperties {
 	Integer globalID;
 	String qCName;
 	String qCDesc;
-	Map<String,String> allProperties;
 	/**
 	 * @return the localID
 	 */
@@ -56,16 +55,5 @@ public class TileProperties {
 	public void setqCDesc(String qCDesc) {
 		this.qCDesc = qCDesc;
 	}
-	/**
-	 * @return the allProperties
-	 */
-	public Map<String, String> getAllProperties() {
-		return allProperties;
-	}
-	/**
-	 * @param allProperties the allProperties to set
-	 */
-	public void setAllProperties(Map<String, String> allProperties) {
-		this.allProperties = allProperties;
-	}
+
 }

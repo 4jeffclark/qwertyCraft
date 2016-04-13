@@ -88,9 +88,7 @@ public class LevelMap {
 	 	tmxyaml.tileheight = (Integer) ty.get("tileheight");	 	
 		//////////////////////////   TileSets  ///////////////////////////////
 
-		System.out.println(ty.get("tilesets").getClass());
-		System.out.println(((ArrayList)ty.get("tilesets")).size());
-		System.out.println(((Map) ((ArrayList) ty.get("tilesets")).get(0)));
+
 		
 		this.tmxyaml.tilesets = new ArrayList<TileSet>();
 //		for (int tset=0;tset < ((ArrayList) ty.get("tilesets")).size();tset++) {
@@ -111,25 +109,17 @@ public class LevelMap {
 			tempts.tileheight=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tileheight");
 			
 			
-			//System.out.println((((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tileproperties").getClass());		
-			//System.out.println((((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tileproperties"));
-			//System.out.println ( ((Map)  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tileproperties")).get("41") );
-			
-			//TileProperties temptp = new TileProperties();
-			
-			//tempts.tileproperties.add(temptp);
-			//System.out.println ( ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tileproperties")   );			
 
-			tempts.tileproperties =  (Map<String,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tileproperties") );
+			tempts.tileproperties = (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tileproperties") );
+			
 			System.out.println (tempts.tileproperties.getClass());
-			System.out.println (((LinkedHashMap)tempts.tileproperties).keySet());
-			System.out.println (tempts.tileproperties);
+			//System.out.println (((Map)tempts.tileproperties).keySet());
+			//if (tempts.tileproperties.containsKey(41))
+			//	System.out.println (tempts.tileproperties.get(41));
 			
-			System.out.println (((LinkedHashMap)tempts.tileproperties).get("41"));
-			//System.out.println (tempts.tileproperties.get("41").get("qCDesc"));	
 			
-			//tempts.tilepropertytypes =  (Map) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
-			
+			tempts.tilepropertytypes =  (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
+
 			tempts.tilewidth=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilewidth");
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
 
@@ -182,7 +172,7 @@ public class LevelMap {
 	 	
 		for (int tset=0;tset < tmxyaml.tilesets.size();tset++) {
 
-			result = result + "\nTILESET " + tset +":\n";
+			result = result + "\n\nTILESET " + tset +":";
 			result = result + "\nCOLUMNS " + tmxyaml.tilesets.get(tset).columns; 
 			result = result + "\nFIRSTGID " + tmxyaml.tilesets.get(tset).firstgid;
 			result = result + "\nIMAGE " + tmxyaml.tilesets.get(tset).image;
@@ -194,16 +184,23 @@ public class LevelMap {
 			result = result + "\nTILECOUNT " + tmxyaml.tilesets.get(tset).tilecount;
 			result = result + "\nTILEHEIGHT " + tmxyaml.tilesets.get(tset).tileheight;
 
-			System.out.println("\nTILEPROPERTIES: (" + tmxyaml.tilesets.get(tset).tileproperties.size() +")\n");
+			result = result + "\nTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).tileproperties.size() +")\n";
+
+			System.out.println ((tmxyaml.tilesets.get(tset).tileproperties).keySet());
+			System.out.println ((tmxyaml.tilesets.get(tset).tilepropertytypes).keySet());
+
+			if (tmxyaml.tilesets.get(tset).tileproperties.containsKey(41))
+					System.out.println (tmxyaml.tilesets.get(tset).tileproperties.get(41).get("qCDesc"));	
+			
 
 			/*
-			result = result + "\nTILEPROPERTIES: (" + tmxyaml.tilesets.get(tset).tileproperties.size() +"(\n";
-			for (Map.Entry<String, String> entry : tmxyaml.tilesets.get(tset).tileproperties.entrySet()) {
+			result = result + "\nqCProperties: (" + tmxyaml.tilesets.get(tset).qCProperties.size() +"(\n";
+			for (Map.Entry<String, String> entry : tmxyaml.tilesets.get(tset).qCProperties.entrySet()) {
 				System.out.println("Item : " + entry.getKey() + " Count : " + entry.getValue());
 			}
 		
 			for (int tp=0;tp < tmxyaml.tilesets.size();tp++) {
-				result = result +(Map) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tileproperties") );
+				result = result +(Map) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("qCProperties") );
 			tempts.tilepropertytypes =  (Map) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
 			tempts.tilewidth=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilewidth");
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
