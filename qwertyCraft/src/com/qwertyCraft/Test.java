@@ -17,7 +17,7 @@ public class Test {
             return;
         }
 
-		//Configuration qC_config= new Configuration(Paths.get( args[ 0 ] ));
+		//Configuration qC_config= new Configuration(( args[ 0 ] ));
 		//System.out.println( "qwertyCraft v" + qC_config.getVersion() );
 		//System.out.println( "Configuration loaded from " + args[0] );
   		//System.out.println( "dump:\n" + qC_config.toString() );
@@ -26,7 +26,7 @@ public class Test {
 	    String userinput = null;
 	    popConsole console = new popConsole();	    
 
-		LevelMap mymap = new LevelMap("data/template.yml");
+		LevelMap mymap = new LevelMap("data/template2.yml");
 		System.out.println(mymap.toString()); 
 /*
 	    String playerinput = new String();

@@ -91,10 +91,10 @@ public class LevelMap {
 
 		
 		this.tmxyaml.tilesets = new ArrayList<TileSet>();
-//		for (int tset=0;tset < ((ArrayList) ty.get("tilesets")).size();tset++) {
-		for (int tset=0;tset < 3;tset++) {
+		for (int tset=0;tset < ((ArrayList) ty.get("tilesets")).size();tset++) {
+		//for (int tset=0;tset < 3;tset++) {
 
-			//System.out.println(tset);
+			System.out.println(tset);
 			TileSet tempts = new TileSet();
 			
 			tempts.columns = (Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("columns");
@@ -129,7 +129,8 @@ public class LevelMap {
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
 			
 			TileProperties qctp;
-
+			
+			if (tempts.tileproperties !=null)
 			for (int tileID : tempts.tileproperties.keySet()) {
 				qctp = new TileProperties();
 
@@ -216,7 +217,7 @@ public class LevelMap {
 			result = result + "\nTILECOUNT " + tmxyaml.tilesets.get(tset).tilecount;
 			result = result + "\nTILEHEIGHT " + tmxyaml.tilesets.get(tset).tileheight;
 
-			result = result + "\nQCTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).qCTileProperties.size() +")\n";
+			result = result + "\nQCTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).qCTileProperties.keySet().size() +")\n";
 
 			for (int tileID : tmxyaml.tilesets.get(tset).qCTileProperties.keySet()) {
 				
@@ -225,16 +226,20 @@ public class LevelMap {
 				result = result + "globalID:" + tmxyaml.tilesets.get(tset).qCTileProperties.get(tileID).globalID + "\n";
 
 			}			
-			result = result + "\nTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).tileproperties.size() +")\n";
+			if (tmxyaml.tilesets.get(tset).tileproperties!=null)
+				result = result + "\nTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).tileproperties.keySet().size() +")\n";
+			else
+				result = result + "\nTILEPROPERTIES (0)\n";
 
-			for (int tileID : tmxyaml.tilesets.get(tset).tileproperties.keySet()) {
-				result = result + "TILEID: " +tileID + "\n"; 
-				for (String propname : tmxyaml.tilesets.get(tset).tileproperties.get(tileID).keySet()) {
-					String propval = tmxyaml.tilesets.get(tset).tileproperties.get(tileID).get(propname);
-					result = result + propname + ": " + propval +"\n";
+			if (tmxyaml.tilesets.get(tset).tileproperties!=null)
+				for (int tileID : tmxyaml.tilesets.get(tset).tileproperties.keySet()) {
+					result = result + "TILEID: " +tileID + "\n"; 
+					for (String propname : tmxyaml.tilesets.get(tset).tileproperties.get(tileID).keySet()) {
+						String propval = tmxyaml.tilesets.get(tset).tileproperties.get(tileID).get(propname);
+						result = result + propname + ": " + propval +"\n";
+					}
+
 				}
-
-			}
 			
 			
 			/*System.out.println ((tmxyaml.tilesets.get(tset).tileproperties).keySet());

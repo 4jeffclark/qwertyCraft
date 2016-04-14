@@ -24,7 +24,9 @@ public class TileSet {
     
     public TileSet () {
     	//have to instantiate interface Map as a specific Object class of Map
-    	this.qCTileProperties = new LinkedHashMap<Integer,TileProperties>();
+        this.tileproperties = new LinkedHashMap<Integer,Map<String,String>>();
+        this.tilepropertytypes = new LinkedHashMap<Integer,Map<String,String>>();
+        this.qCTileProperties = new LinkedHashMap<Integer,TileProperties>();
     }
     
     

@@ -3,6 +3,7 @@ import static java.lang.String.format;
 
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -17,18 +18,18 @@ public final class Configuration {
     private List< String > listExample;
     private Map< String, String > mapExample; 
 
-		public Configuration (String filename) {
+	public Configuration (String filename) {
 
-        Yaml configyaml = new Yaml();  
+    Yaml configyaml = new Yaml();  
 
 /*
-        try( InputStream in = Files.newInputStream( filename )) {
+        try( InputStream in = Files.newInputStream( Paths.get(filename) )) {
             this.class = configyaml.loadAs( in, Configuration.class );
-
+*/
         }
 
-*/
-		}
+
+
 
 	
 	
