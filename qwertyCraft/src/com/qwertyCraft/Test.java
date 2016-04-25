@@ -52,11 +52,11 @@ public class Test {
 			tick++;
 			
 			StringBuilder hud = new StringBuilder()
-	            .append( format( "[%d,%d,%d] ", testPlayer.mapx,testPlayer.mapy,testPlayer.mapz ) )
-	            .append( format( "%s\n", testPlayer.getTile("Terrain").name ) )
+	            //.append( format( "[%d,%d,%d] ", testPlayer.mapx,testPlayer.mapy,testPlayer.mapz ) )
+							.append( format( "\n%s\n", testPlayer.getTile("Terrain").name ) )
 	            .append( format( "%s\n", testPlayer.getTile("Terrain").desc ) );
 
-			System.out.println (hud);
+			System.out.print (hud);
 			userinput=console.prompt("> ");
 			if (userinput.equals("exit"))
 				break;
