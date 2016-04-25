@@ -1,5 +1,7 @@
 package com.qwertyCraft;
 
+import static java.lang.String.format;
+
 import java.io.*;
 import org.yaml.snakeyaml.Yaml;
 
@@ -7,6 +9,8 @@ import net.homeip.jeffclark.popJava.consoleio.popConsole;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.Format;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Test {
@@ -16,62 +20,52 @@ public class Test {
             System.out.println( "Usage: <Configuration_Filename.yml>" );
             return;
         }
-
-		//Configuration qC_config= new Configuration(( args[ 0 ] ));
-		//System.out.println( "qwertyCraft v" + qC_config.getVersion() );
-		//System.out.println( "Configuration loaded from " + args[0] );
-  		//System.out.println( "dump:\n" + qC_config.toString() );
+		Yaml configyaml = new Yaml();  
+		
+		Configuration myConfiguration = new Configuration();
+		
+		try( InputStream in = Files.newInputStream( Paths.get(args[0]) )) {
+			myConfiguration =  configyaml.loadAs( in, Configuration.class );
+        }
+		
+		
+		System.out.println( "Configuration loaded from " + args[0] );
+  		System.out.println( myConfiguration.toString() );
 		
 	    Integer tick = 0;		
 	    String userinput = null;
 	    popConsole console = new popConsole();	    
 
-		LevelMap mymap = new LevelMap("data/template2.yml");
+		LevelMap mymap = new LevelMap(myConfiguration.getMapFiles().get(0));
 		System.out.println(mymap.toString()); 
-/*
+
 	    String playerinput = new String();
 	    userinput = console.prompt("Please tell me your name: ");
 	    Player testPlayer = new Player(userinput);
-
+	    testPlayer.map=mymap;
 
 	    System.out.println("Hello there " + testPlayer.getName() + ". Welcome to the qwertyCraft test world.");
 		console.prompt("Press any key to continue...");
 		
 			
-		while (true){
+		while (true) {
 			tick++;
-			System.out.println ("you are at: "+ 
-					mymap.tile[testPlayer.x][testPlayer.y][testPlayer.z].name);
+			
+			StringBuilder hud = new StringBuilder()
+	            .append( format( "[%d,%d,%d] ", testPlayer.mapx,testPlayer.mapy,testPlayer.mapz ) )
+	            .append( format( "%s\n", testPlayer.getTile("Terrain").name ) )
+	            .append( format( "%s\n", testPlayer.getTile("Terrain").desc ) );
+
+			System.out.println (hud);
 			userinput=console.prompt("> ");
-			if (userinput.equals("n")){
-				testPlayer.y++;
-			} else if (userinput.equals("s")){
-				testPlayer.y--;
-			} else if (userinput.equals("e")){
-				testPlayer.x++;
-			} else if (userinput.equals("w")){
-				testPlayer.x--;
-			} else if (userinput.equals("nw")){
-				testPlayer.x--;
-				testPlayer.y++;
-			} else if (userinput.equals("ne")){
-				testPlayer.x++;
-				testPlayer.y++;
-			} else if (userinput.equals("se")){
-				testPlayer.x++;
-				testPlayer.y--;
-			} else if (userinput.equals("sw")){
-				testPlayer.x--;
-				testPlayer.y--;
-			} else if (userinput.equals("u")){
-				testPlayer.z++;
-			} else if (userinput.equals("d")){
-				testPlayer.z--;
-			} else if (userinput.equals("exit")){
+			if (userinput.equals("exit"))
 				break;
-			} 
-			testPlayer.bringInBounds();
+			
+			else { 
+				testPlayer.moveByUserCommand(userinput);
+				testPlayer.bringInBounds();
+			}
 		}
-		*/
+		
 	}
 }
