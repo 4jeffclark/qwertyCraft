@@ -1,6 +1,0 @@
-[submodule "popJava"]
-	path = popJava
-	url = https://github.com/4jeffclark/popJava.git
-[submodule "tiled"]
-	path = tiled
-	url = https://github.com/bjorn/tiled.git
