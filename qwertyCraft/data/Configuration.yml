@@ -2,15 +2,7 @@ version: 0.1
 released: 2016-03-11
 
 # mapFile
-mapFile: data/testMap.yml
-
-
-
-
-
-
-
-
+startMapFile: "data/Scene 1.yml"
 
 
 
@@ -27,9 +19,9 @@ classExample:
     poolSize: 5
 
 # Map
-listExample:
-   - http
-   - https
+mapFiles:
+   - "data/Scene 1.yml"
+   - "data/Scene 1.yml"
 
 # Users
 mapExample:

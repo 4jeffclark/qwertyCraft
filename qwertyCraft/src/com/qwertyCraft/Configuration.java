@@ -1,10 +1,12 @@
 package com.qwertyCraft;
 import static java.lang.String.format;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,35 +15,25 @@ import org.yaml.snakeyaml.Yaml;
 public final class Configuration { 
     private String version;
     private Date released;
-    private String mapFile;
+    private String startMapFile;
     private YamlClassExample classExample;
-    private List< String > listExample;
+    private List< String > mapFiles;
     private Map< String, String > mapExample; 
 
-	public Configuration (String filename) {
-
-    Yaml configyaml = new Yaml();  
-
-/*
-        try( InputStream in = Files.newInputStream( Paths.get(filename) )) {
-            this.class = configyaml.loadAs( in, Configuration.class );
-*/
-        }
+	public Configuration () throws IOException {
 
 
+	}
 
 
-	
-	
-	
     @Override
     public String toString() {
         return new StringBuilder()
             .append( format( "Version: %s\n", version ) )
             .append( format( "Released: %s\n", released ) )
-            .append( format( "Map File: %s\n", mapFile ) )
+            .append( format( "Map File: %s\n", startMapFile))
             .append( format( "Class Example: %s\n", classExample ) )
-            .append( format( "List example: %s\n", listExample ) )
+            .append( format( "List example: %s\n", mapFiles ) )
             .append( format( "Map example: %s\n", mapExample ) )
             .toString();
     }
@@ -77,15 +69,15 @@ public final class Configuration {
 	/**
 	 * @return the mapFile
 	 */
-	public String getMapFile() {
-		return mapFile;
+	public String getStartMapFile() {
+		return this.startMapFile;
 	}
 
 	/**
 	 * @param mapFile the mapFile to set
 	 */
-	public void setMapFile(String mapFile) {
-		this.mapFile = mapFile;
+	public void setStartMapFile(String mapFile) {
+		this.startMapFile = mapFile;
 	}
 
 	/**
@@ -105,15 +97,15 @@ public final class Configuration {
 	/**
 	 * @return the listExample
 	 */
-	public List<String> getListExample() {
-		return listExample;
+	public List<String> getMapFiles() {
+		return this.mapFiles;
 	}
 
 	/**
 	 * @param listExample the listExample to set
 	 */
-	public void setListExample(List<String> listExample) {
-		this.listExample = listExample;
+	public void setMapFiles(List<String> mapFiles) {
+		this.mapFiles = mapFiles;
 	}
 
 	/**
