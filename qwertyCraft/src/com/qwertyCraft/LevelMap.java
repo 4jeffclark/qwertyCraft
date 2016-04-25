@@ -13,15 +13,22 @@ import org.yaml.snakeyaml.Yaml;
 public class LevelMap {	
 	//public Tile[][][] tile;
 
-	TmxYaml tmxyaml;
-
+	//TmxYaml duh;
+	Integer height;
+	ArrayList<Layer> layers;
+	Integer  nextobjectid;
+	String  orientation;
+	String  renderorder;
+	Integer  tileheight;
+	ArrayList<TileSet>  tilesets; 
 
 
 	public LevelMap (String fileName) throws IOException {
 
-		tmxyaml = new TmxYaml();
+		//duh = new TmxYaml();
 
 		this.loadFreeForm(fileName);
+
 		
 	}
 
@@ -40,15 +47,34 @@ public class LevelMap {
 
 		Map<String,Object> ty = (Map<String, Object>) yaml.load(ios);
 		
-		this.tmxyaml.height = (int) ty.get("height");
+		
+		//System.out.println(ty.toString());
+		//System.out.println(ty.keySet());
+		
+		//System.out.println(ty.get("layers"));
+		//System.out.println(ty.get("layers").getClass());
+		//System.out.println(((ArrayList) ty.get("layers")).get(0));
+		
+			
+		
+		this.height = (int) ty.get("height");
+		//System.out.println(this.height);
 
 		//////////////////////////   Layers  ///////////////////////////////
 		
-		this.tmxyaml.layers = new ArrayList<TmxLayer>();
+		//System.out.println( ty.get("layers").getClass());
+		//System.out.println( ((ArrayList) ty.get("layers")).get(0));
+		//System.out.println( ((ArrayList) ty.get("layers")).get(0).getClass());
+		//System.out.println(((Map) ((ArrayList) ty.get("layers")).get(0)).keySet());
+		//System.out.println(((Map) ((ArrayList) ty.get("layers")).get(0)).get("data").getClass());
+
+		
+		this.layers = new ArrayList<Layer>();
 
 	 	for (int layernum=0;layernum < ((ArrayList) ty.get("layers")).size();layernum++) {
 
-			TmxLayer templayer = new TmxLayer();
+
+	 		Layer templayer = new Layer();
 			
 			templayer.data = (ArrayList)(((Map) ((ArrayList) ty.get("layers")).get(layernum))).get("data");
 			templayer.height = (Integer) ((Map) ((ArrayList) ty.get("layers")).get(layernum)).get("height");
@@ -59,25 +85,21 @@ public class LevelMap {
 			templayer.x=(Integer)((Map) ((ArrayList) ty.get("layers")).get(layernum)).get("x");
 			templayer.y=(Integer)((Map) ((ArrayList) ty.get("layers")).get(layernum)).get("y");
 
-			this.tmxyaml.layers.add(templayer);
+			this.layers.add(templayer);
 			
 		}
 	 	
-	 	tmxyaml.nextobjectid = (Integer) ty.get("nextobjectid");
-	 	tmxyaml.orientation = (String) ty.get("orientation");	 	
-	 	tmxyaml.renderorder = (String) ty.get("renderorder");	 	
-	 	tmxyaml.tileheight = (Integer) ty.get("tileheight");	
-		
-		
+	 	this.nextobjectid = (Integer) ty.get("nextobjectid");
+	 	this.orientation = (String) ty.get("orientation");	 	
+	 	this.renderorder = (String) ty.get("renderorder");	 	
+	 	this.tileheight = (Integer) ty.get("tileheight");	 	
 		//////////////////////////   TileSets  ///////////////////////////////
 
 
 		
-		this.tmxyaml.tilesets = new ArrayList<TileSet>();
+		this.tilesets = new ArrayList<TileSet>();
 		for (int tset=0;tset < ((ArrayList) ty.get("tilesets")).size();tset++) {
-		//for (int tset=0;tset < 3;tset++) {
 
-			System.out.println(tset);
 			TileSet tempts = new TileSet();
 			
 			tempts.columns = (Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("columns");
@@ -90,13 +112,10 @@ public class LevelMap {
 			tempts.spacing=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("spacing");
 			tempts.tilecount=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilecount");
 			tempts.tileheight=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tileheight");
-			
-			
-			//////////////////////////   Tile Properties ///////////////////////////////
 
 			tempts.tileproperties = (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tileproperties") );
-			
-				
+			tempts.tilepropertytypes =  (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
+
 			tempts.tilewidth=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilewidth");
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
 			
@@ -124,96 +143,114 @@ public class LevelMap {
 					qctp.globalID=tempts.firstgid+tileID;
 				}
 
-				tempts.qCTileProperties.put(tileID, qctp);
+
+				tempts.qCTileProperties.put(tempts.firstgid+tileID, qctp);
+			}
+
+			this.tilesets.add(tempts);
+			for (int layer=0; layer < this.layers.size() ; layer++) {
+				this.layers.get(layer).loadTiles(this.tilesets);
 			}
 			
-			tempts.tilepropertytypes =  (Map<Integer,Map<String,String>>) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
-
-			this.tmxyaml.tilesets.add(tempts);
 		}
 	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
+	//@Override
 	public String toString() {
 	 	
 		String result = null;
 		
-		result = result + "\nqertyCraft Map loaded from TMX.\nheight: " + tmxyaml.height.toString();
-		result = result + "\nMap Layers (" +tmxyaml.layers.size() + "):\n";
-		for (Integer layernum=0;layernum < tmxyaml.layers.size();layernum++) {
+		result = result + "\nqertyCraft Map loaded from TMX.\nheight: " + this.height.toString();
+		result = result + "\nMap Layers (" +this.layers.size() + "):\n";
+		for (Integer layernum=0;layernum < this.layers.size();layernum++) {
 
 			result = result + "TMXLayer "+ layernum.toString();
-			Integer h = tmxyaml.layers.get(layernum).height;
-			Integer w = tmxyaml.layers.get(layernum).width;
-			result = result + "\nheight: " + tmxyaml.height + "\ndata ("+w+"x"+h+"):\n";
+			Integer h = this.layers.get(layernum).height;
+			Integer w = this.layers.get(layernum).width;
+			result = result + "\nheight: " + this.height + "\ndata ("+w+"x"+h+"):\n";
 
 			for (Integer row=0;row < h ;row++) {	
 				for (Integer column=0;column < w;column++) {	
-					result = result + "\t" + tmxyaml.layers.get(layernum).data.get(row*w+column).toString();
+					result = result + "\t" + this.layers.get(layernum).data.get(row*w+column).toString();
 				}
 				result = result +"\n";
 			}
 			
 
-			result = result +"\nNAME: "+tmxyaml.layers.get(layernum).name;
-			result = result +"\nOPACITY: "+tmxyaml.layers.get(layernum).opacity; 
-			result = result +"\nVISIBLE: "+tmxyaml.layers.get(layernum).visible; 
-			result = result +"\nWIDTH: "+tmxyaml.layers.get(layernum).width;
-			result = result +"\nX: "+tmxyaml.layers.get(layernum).x;
-			result = result +"\nY: "+tmxyaml.layers.get(layernum).y;
+			result = result +"\nNAME: "+this.layers.get(layernum).name;
+			result = result +"\nOPACITY: "+this.layers.get(layernum).opacity; 
+			result = result +"\nVISIBLE: "+this.layers.get(layernum).visible; 
+			result = result +"\nWIDTH: "+this.layers.get(layernum).width;
+			result = result +"\nX: "+this.layers.get(layernum).x;
+			result = result +"\nY: "+this.layers.get(layernum).y;
 			
 		
 		}
-		result = result + "\nNEXTOBJECTID: " + tmxyaml.nextobjectid;
-		result = result +"\nORIENTATION: " + tmxyaml.orientation;
-		result = result +"\nRENDERORDER: " + tmxyaml.renderorder; 
-		result = result +"\nTILEHEIGHT: " + tmxyaml.tileheight;
-		result = result + "\nFOUND " + tmxyaml.tilesets.size();
+		result = result + "\nNEXTOBJECTID: " + this.nextobjectid;
+		result = result +"\nORIENTATION: " + this.orientation;
+		result = result +"\nRENDERORDER: " + this.renderorder; 
+		result = result +"\nTILEHEIGHT: " + this.tileheight;
+		result = result + "\nFOUND " + this.tilesets.size();
 		
 	 	
-		for (int tset=0;tset < tmxyaml.tilesets.size();tset++) {
+		for (int tset=0;tset < this.tilesets.size();tset++) {
 
 			result = result + "\n\nTILESET " + tset +":";
-			result = result + "\nCOLUMNS " + tmxyaml.tilesets.get(tset).columns; 
-			result = result + "\nFIRSTGID " + tmxyaml.tilesets.get(tset).firstgid;
-			result = result + "\nIMAGE " + tmxyaml.tilesets.get(tset).image;
-			result = result + "\nIMAGEHEIGHT " + tmxyaml.tilesets.get(tset).imageheight;
-			result = result + "\nIMAGEWIDTH " + tmxyaml.tilesets.get(tset).imagewidth;
-			result = result + "\nMARGIN " + tmxyaml.tilesets.get(tset).margin;
-			result = result + "\nNAME " + tmxyaml.tilesets.get(tset).name;
-			result = result + "\nSPACING " + tmxyaml.tilesets.get(tset).spacing;
-			result = result + "\nTILECOUNT " + tmxyaml.tilesets.get(tset).tilecount;
-			result = result + "\nTILEHEIGHT " + tmxyaml.tilesets.get(tset).tileheight;
+			result = result + "\nCOLUMNS " + this.tilesets.get(tset).columns; 
+			result = result + "\nFIRSTGID " + this.tilesets.get(tset).firstgid;
+			result = result + "\nIMAGE " + this.tilesets.get(tset).image;
+			result = result + "\nIMAGEHEIGHT " + this.tilesets.get(tset).imageheight;
+			result = result + "\nIMAGEWIDTH " + this.tilesets.get(tset).imagewidth;
+			result = result + "\nMARGIN " + this.tilesets.get(tset).margin;
+			result = result + "\nNAME " + this.tilesets.get(tset).name;
+			result = result + "\nSPACING " + this.tilesets.get(tset).spacing;
+			result = result + "\nTILECOUNT " + this.tilesets.get(tset).tilecount;
+			result = result + "\nTILEHEIGHT " + this.tilesets.get(tset).tileheight;
 
-			result = result + "\nQCTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).qCTileProperties.keySet().size() +")\n";
+			result = result + "\nQCTILEPROPERTIES (" + this.tilesets.get(tset).qCTileProperties.keySet().size() +")\n";
 
-			for (int tileID : tmxyaml.tilesets.get(tset).qCTileProperties.keySet()) {
+			for (int tileID : this.tilesets.get(tset).qCTileProperties.keySet()) {
 				
 				result = result + "TILEID " + tileID + " - "; 
-				result = result + "localID:" + tmxyaml.tilesets.get(tset).qCTileProperties.get(tileID).localID + " ";
-				result = result + "globalID:" + tmxyaml.tilesets.get(tset).qCTileProperties.get(tileID).globalID + "\n";
+				result = result + "localID:" + this.tilesets.get(tset).qCTileProperties.get(tileID).localID + " ";
+				result = result + "globalID:" + this.tilesets.get(tset).qCTileProperties.get(tileID).globalID + "\n";
 
 			}			
-			if (tmxyaml.tilesets.get(tset).tileproperties!=null)
-				result = result + "\nTILEPROPERTIES (" + tmxyaml.tilesets.get(tset).tileproperties.keySet().size() +")\n";
+			if (this.tilesets.get(tset).tileproperties!=null)
+				result = result + "\nTILEPROPERTIES (" + this.tilesets.get(tset).tileproperties.keySet().size() +")\n";
 			else
 				result = result + "\nTILEPROPERTIES (0)\n";
 
-			if (tmxyaml.tilesets.get(tset).tileproperties!=null)
-				for (int tileID : tmxyaml.tilesets.get(tset).tileproperties.keySet()) {
+			if (this.tilesets.get(tset).tileproperties!=null)
+				for (int tileID : this.tilesets.get(tset).tileproperties.keySet()) {
 					result = result + "TILEID: " +tileID + "\n"; 
-					for (String propname : tmxyaml.tilesets.get(tset).tileproperties.get(tileID).keySet()) {
-						String propval = tmxyaml.tilesets.get(tset).tileproperties.get(tileID).get(propname);
+					for (String propname : this.tilesets.get(tset).tileproperties.get(tileID).keySet()) {
+						String propval = this.tilesets.get(tset).tileproperties.get(tileID).get(propname);
 						result = result + propname + ": " + propval +"\n";
 					}
 
 				}
 			
 			
+			/*System.out.println ((this.tilesets.get(tset).tileproperties).keySet());
+			System.out.println ((this.tilesets.get(tset).tilepropertytypes).keySet());
+
+			if (this.tilesets.get(tset).tileproperties.containsKey(41))
+					System.out.println (this.tilesets.get(tset).tileproperties.get(41).get("qCDesc"));	
+			*/
+
 			/*
+			result = result + "\nqCProperties: (" + this.tilesets.get(tset).qCProperties.size() +"(\n";
+			for (Map.Entry<String, String> entry : this.tilesets.get(tset).qCProperties.entrySet()) {
+				System.out.println("Item : " + entry.getKey() + " Count : " + entry.getValue());
+			}
+		
+			for (int tp=0;tp < this.tilesets.size();tp++) {
+				result = result +(Map) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("qCProperties") );
+			tempts.tilepropertytypes =  (Map) (  ((Map) ((ArrayList) ty.get("tilesets")).get(tset)).get("tilepropertytypes") );
 			tempts.tilewidth=(Integer)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("tilewidth");
 			tempts.transparentcolor=(String)(((Map) ((ArrayList) ty.get("tilesets")).get(tset))).get("transparentcolor");
 */

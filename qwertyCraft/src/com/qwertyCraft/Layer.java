@@ -1,24 +1,45 @@
 package com.qwertyCraft;
 
+import java.util.ArrayList;
+
 public class Layer {
-	private Integer[] data;
-	private Integer height;
-	private String name;
-	private float opacity;
-	private boolean visible;
-	private Integer width;
-	private Integer x;
-	private Integer y;
+	ArrayList<Integer> data;
+	Integer height;
+	String name;
+	float opacity;
+	boolean visible;
+	Integer width;
+	Integer x;
+	Integer y;
+	public Tile[] mapTiles;
+	
+	
+	public void loadTiles(ArrayList<TileSet>  tilesets) {
+		this.mapTiles = new Tile [this.data.size()];
+		for (int i = 0; i< this.data.size(); i++) {
+			this.mapTiles[i]=new Tile();
+			for (int set=0; set < tilesets.size(); set++){
+				if (tilesets.get(set).qCTileProperties.containsKey(this.data.get(i)) ) {
+					this.mapTiles[i].name = tilesets.get(set).qCTileProperties.get(this.data.get(i)).qCName;
+					this.mapTiles[i].desc = tilesets.get(set).qCTileProperties.get(this.data.get(i)).qCDesc;
+				}
+					
+			}
+		}
+	}	
+	
+	
+	
 	/**
 	 * @return the data
 	 */
-	public Integer[] getData() {
+	public ArrayList<Integer> getData() {
 		return data;
 	}
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(Integer[] data) {
+	public void setData(ArrayList<Integer> data) {
 		this.data = data;
 	}
 	/**

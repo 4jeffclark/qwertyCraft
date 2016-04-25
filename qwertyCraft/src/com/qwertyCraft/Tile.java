@@ -4,7 +4,7 @@ public class Tile {
 
 	public String name;
 	public String shortDesc;
-	public String Desc;
+	public String desc;
 	public Portal n;
 	public Portal s;
 	public Portal e;
