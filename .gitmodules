@@ -1,0 +1,3 @@
+[submodule "qwertyCraft/popJava"]
+	path = qwertyCraft/popJava
+	url = https://github.com/4jeffclark/popJava.git
