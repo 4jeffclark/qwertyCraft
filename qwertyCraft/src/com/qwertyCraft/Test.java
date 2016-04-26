@@ -12,7 +12,11 @@ import java.nio.file.Paths;
 import java.text.Format;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+/**
+ * Main class for testing qwertyCraft with example content.
+ * @author Jeff
+ *
+ */
 public class Test {
 	public static void main(String[] args) throws FileNotFoundException,IOException {
 
@@ -20,49 +24,57 @@ public class Test {
             System.out.println( "Usage: <Configuration_Filename.yml>" );
             return;
         }
-		Yaml configyaml = new Yaml();  
+		// Yaml object for reading qcConfig. Plan to bury in Configuration class.
+        Yaml configyaml = new Yaml();  
 		
-		Configuration myConfiguration = new Configuration();
+		// Instantiate qwertyCraft Configuration object
+        Configuration myConfiguration = new Configuration();
 		
+        // Parse and load configuration. Plan to bury in Configuration class.
 		try( InputStream in = Files.newInputStream( Paths.get(args[0]) )) {
 			myConfiguration =  configyaml.loadAs( in, Configuration.class );
         }
 		
-		
+		//Confirm Configuration
 		System.out.println( "Configuration loaded from " + args[0] );
   		System.out.println( myConfiguration.toString() );
-		
-	    Integer tick = 0;		
-	    String userinput = null;
-	    popConsole console = new popConsole();	    
 
-		LevelMap mymap = new LevelMap(myConfiguration.getMapFiles().get(0));
-		System.out.println(mymap.toString()); 
-
-	    String playerinput = new String();
-	    userinput = console.prompt("Please tell me your name: ");
-	    Player testPlayer = new Player(userinput);
-	    testPlayer.map=mymap;
-
+		//console vars
+	    popConsole console = new popConsole(); //Instantiate console.    
+	    String playerinput = new String(); //to hold user console input
+	    
+	    //Create player
+	    playerinput = console.prompt("Please tell me your name: "); //get player's name
+	    Player testPlayer = new Player(playerinput); //Instantiate a new player
 	    System.out.println("Hello there " + testPlayer.getName() + ". Welcome to the qwertyCraft test world.");
-		console.prompt("Press any key to continue...");
+		console.prompt("Press Return to continue...");
 		
-			
+		
+		// Instantiate qwertyCraft LevelMap object from data file in loaded configuration
+		LevelMap tempmap = new LevelMap(myConfiguration.getMapFiles().get(0));
+	    testPlayer.map=tempmap;
+		System.out.println(testPlayer.map.toString()); 
+
+		
+	    Integer turn = 0;	//game loop turn counter.	
+
+		// Game Loop
 		while (true) {
-			tick++;
 			
 			StringBuilder hud = new StringBuilder()
 	            //.append( format( "[%d,%d,%d] ", testPlayer.mapx,testPlayer.mapy,testPlayer.mapz ) )
-							.append( format( "\n%s\n", testPlayer.getTile("Terrain").name ) )
+				.append( format( "\n%s\n", testPlayer.getTile("Terrain").name ) )
 	            .append( format( "%s\n", testPlayer.getTile("Terrain").desc ) );
 
 			System.out.print (hud);
-			userinput=console.prompt("> ");
-			if (userinput.equals("exit"))
+			playerinput=console.prompt("> ");
+			turn++;
+
+			if (playerinput.equals("exit"))
 				break;
 			
 			else { 
-				testPlayer.moveByUserCommand(userinput);
+				testPlayer.moveByUserCommand(playerinput);
 				testPlayer.bringInBounds();
 			}
 		}
